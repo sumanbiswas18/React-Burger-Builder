@@ -1,6 +1,7 @@
 .burger {
   width: 500px;
-  margin: auto;
+  margin: 5% auto;
+  padding: 2%;
   height: 450px;
   text-align: center;
   font-size: 20px;
