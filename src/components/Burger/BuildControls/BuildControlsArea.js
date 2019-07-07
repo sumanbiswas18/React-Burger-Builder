@@ -10,7 +10,7 @@ const controls = [
 ];
 const BuildControlsArea = props => (
   <div className={cssClass.buildControlsArea}>
-    <p>Your Burger Price {props.price.toFixed(2)}</p>
+    <p>Your Burger Price: {props.price.toFixed(2)}</p>
     {controls.map(ctrl => (
       <Buildcontrol
         key={ctrl.lable}
@@ -20,6 +20,10 @@ const BuildControlsArea = props => (
         disabled={props.disabled[ctrl.type]}
       />
     ))}
+
+    <button className={cssClass.OrderButton} disabled={!props.purchasable}>
+      Order Now
+    </button>
   </div>
 );
 
