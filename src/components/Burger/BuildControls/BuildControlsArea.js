@@ -21,7 +21,11 @@ const BuildControlsArea = props => (
       />
     ))}
 
-    <button className={cssClass.OrderButton} disabled={!props.purchasable}>
+    <button
+      className={cssClass.OrderButton}
+      disabled={!props.purchasable}
+      onClick={props.ordered}
+    >
       Order Now
     </button>
   </div>
