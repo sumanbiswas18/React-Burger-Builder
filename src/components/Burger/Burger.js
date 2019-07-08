@@ -16,7 +16,6 @@ const burger = props => {
   if (catchIngredients.length === 0) {
     catchIngredients = <p>Please Start Adding ingredients!</p>;
   }
-  console.log(catchIngredients);
 
   return (
     <div className={BurgerStyle.burger}>
