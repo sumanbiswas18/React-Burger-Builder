@@ -1,25 +1,47 @@
 .Navigationitem {
-  margin: 0;
+  margin: 10px 0;
   box-sizing: border-box;
-  display: flex;
-  height: 100%;
-  align-items: center;
+  display: block;
+  width: 100%;
 }
 
 .Navigationitem a {
-  color: aliceblue;
+  color: brown;
   text-decoration: none;
-  height: 100%;
-  padding: 16px 10px;
-  border-bottom: 4px solid transparent;
+  width: 100%;
   box-sizing: border-box;
   display: block;
+  font-size: 16px;
 }
 
 .Navigationitem a:hover,
 .Navigationitem a:active,
 .Navigationitem a.active {
-  background-color: burlywood;
-  border-bottom: 4px solid blueviolet;
-  color: azure;
+  color: rgb(87, 182, 182);
+}
+
+@media (min-width: 500px) {
+  .Navigationitem {
+    margin: 0;
+    display: flex;
+    width: auto;
+    height: 100%;
+    align-items: center;
+  }
+
+  .Navigationitem a {
+    color: aliceblue;
+    text-decoration: none;
+    height: 100%;
+    padding: 16px 10px;
+    border-bottom: 4px solid transparent;
+  }
+
+  .Navigationitem a:hover,
+  .Navigationitem a:active,
+  .Navigationitem a.active {
+    background-color: burlywood;
+    border-bottom: 4px solid blueviolet;
+    color: azure;
+  }
 }

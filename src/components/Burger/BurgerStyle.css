@@ -1,5 +1,6 @@
 .burger {
-  width: 500px;
+  width: auto;
+  max-width: 400px;
   margin: auto;
   padding: 2%;
   height: 450px;

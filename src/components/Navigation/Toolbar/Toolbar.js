@@ -2,13 +2,14 @@ import React from "react";
 import classes from "./Toolbar.css";
 import Logo from "../../Logo/Logo";
 import NavigationItems from "../NavigationItems/NavigationItems";
+import HamburgerManu from "../SideDrawer/HamburgerManu/HamBurgerManu";
 const Toolbar = props => (
   <header className={classes.Toolbar}>
-    <div>Menu</div>
+    <HamburgerManu manuClicked={props.showSideDrawer} />
     <div>
       <Logo />
     </div>
-    <nav>
+    <nav className={classes.DesktopOnly}>
       <NavigationItems />
     </nav>
   </header>
