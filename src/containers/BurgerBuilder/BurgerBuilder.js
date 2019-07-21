@@ -4,7 +4,8 @@ import Burger from "../../components/Burger/Burger";
 import BuildControlsArea from "../../components/Burger/BuildControls/BuildControlsArea";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
-
+import axios from "../../axios-orders";
+import Spinner from "../../components/UI/Spinner/Spinner";
 // setting upthe base price for each ingredients
 const PRICEING = {
   salad: 0.4,
@@ -23,7 +24,8 @@ class BurgerBuilder extends Component {
     },
     totalPrice: 5,
     purchasable: false,
-    purchasing: false
+    purchasing: false,
+    loading: false
   };
 
   checkPurchasable(ingredients) {
@@ -85,7 +87,32 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    alert("Susccessfully Purchased ! ");
+    // alert("Susccessfully Purchased ! ");
+    this.setState({ loading: true });
+    const order = {
+      ingredients: this.state.ingredients,
+      price: this.state.totalPrice,
+      customer: {
+        name: "Suman Biswas",
+        address: {
+          street: "BK Sarani",
+          PinCode: "457721",
+          country: "India"
+        },
+        email: "suman@gmail.com"
+      },
+      deleveryMethod: "Speed"
+    };
+    axios
+      .post("/orders.json", order)
+      .then(res => {
+        // console.log(res);
+        this.setState({ loading: false, purchasing: false });
+      })
+      .catch(error => {
+        // console.log(error);
+        this.setState({ loading: false, purchasing: false });
+      });
   };
 
   render() {
@@ -95,15 +122,22 @@ class BurgerBuilder extends Component {
     for (let key in disabledInfo) {
       disabledInfo[key] = disabledInfo[key] <= 0;
     }
+
+    let orderSummery = (
+      <OrderSummary
+        ingredients={this.state.ingredients}
+        purchaseContinue={this.purchaseContinueHandler}
+        purchaseCancle={this.backdropClosed}
+        price={this.state.totalPrice}
+      />
+    );
+    if (this.state.loading) {
+      orderSummery = <Spinner />;
+    }
     return (
       <Auxilary>
         <Modal show={this.state.purchasing} modalClosed={this.backdropClosed}>
-          <OrderSummary
-            ingredients={this.state.ingredients}
-            purchaseContinue={this.purchaseContinueHandler}
-            purchaseCancle={this.backdropClosed}
-            price={this.state.totalPrice}
-          />
+          {orderSummery}
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControlsArea
