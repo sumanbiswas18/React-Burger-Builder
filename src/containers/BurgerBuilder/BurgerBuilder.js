@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+// import { Route } from "react-router-dom";
+
 import Auxilary from "../../hoc/Auxilary";
 import Burger from "../../components/Burger/Burger";
 import BuildControlsArea from "../../components/Burger/BuildControls/BuildControlsArea";
@@ -96,31 +98,24 @@ class BurgerBuilder extends Component {
 
   purchaseContinueHandler = () => {
     // alert("Susccessfully Purchased ! ");
-    this.setState({ loading: true });
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      customer: {
-        name: "Suman Biswas",
-        address: {
-          street: "BK Sarani",
-          PinCode: "457721",
-          country: "India"
-        },
-        email: "suman@gmail.com"
-      },
-      deleveryMethod: "Speed"
-    };
-    axios
-      .post("/orders.json", order)
-      .then(res => {
-        // console.log(res);
-        this.setState({ loading: false, purchasing: false });
-      })
-      .catch(error => {
-        // console.log(error);
-        this.setState({ loading: false, purchasing: false });
-      });
+
+    const queryParam = [];
+
+    for (let i in this.state.ingredients) {
+      queryParam.push(
+        encodeURIComponent(i) +
+          "=" +
+          encodeURIComponent(this.state.ingredients[i])
+      );
+    }
+
+    queryParam.push("price=" + this.state.totalPrice);
+    const queryString = queryParam.join("&");
+
+    this.props.history.push({
+      pathname: "/checkout",
+      search: "?" + queryString
+    });
   };
 
   render() {
