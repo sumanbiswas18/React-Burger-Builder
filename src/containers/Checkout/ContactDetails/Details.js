@@ -6,6 +6,7 @@ import Button from '../../../components/UI/Button/Button';
 import classes from './Details.css';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
+import * as actionTypes from '../../../store/Action/index';
 
 class Details extends Component {
 	state = {
@@ -77,8 +78,7 @@ class Details extends Component {
 				},
 				value: ''
 			}
-		},
-		loading: false
+		}
 	};
 
 	orderHandler = (event) => {
@@ -98,17 +98,7 @@ class Details extends Component {
 			price: this.props.price,
 			orderData: formData
 		};
-		axios
-			.post('/orders.json', order)
-			.then((res) => {
-				// console.log(res);
-				this.setState({ loading: false });
-				this.props.history.push('/');
-			})
-			.catch((error) => {
-				// console.log(error);
-				this.setState({ loading: false });
-			});
+		this.props.onOrderingBurger(order);
 	};
 
 	checkValidity = (value, rules) => {
@@ -134,7 +124,7 @@ class Details extends Component {
 		updatedFromElement.valid = this.checkValidity(updatedFromElement.value, updatedFromElement.validation);
 
 		updatedOrderFrom[inputIdentifire] = updatedFromElement;
-		console.log(updatedFromElement);
+		// console.log(updatedFromElement);
 		this.setState({ orderForm: updatedOrderFrom });
 	};
 
@@ -162,7 +152,7 @@ class Details extends Component {
 				<Button btnType="Success">Order</Button>
 			</form>
 		);
-		if (this.state.loading) {
+		if (this.props.load) {
 			from = <Spinner />;
 		}
 		return <div className={classes.Details}>{from}</div>;
@@ -171,9 +161,16 @@ class Details extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		ings: state.ingredients,
-		price: state.price
+		ings: state.burgarReducer.ingredients,
+		price: state.burgarReducer.totalPrice,
+		load: state.order.loading
 	};
 };
 
-export default connect(mapStateToProps)(Details);
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onOrderingBurger: (orderData) => dispatch(actionTypes.purchaseBurger(orderData))
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Details, axios);
