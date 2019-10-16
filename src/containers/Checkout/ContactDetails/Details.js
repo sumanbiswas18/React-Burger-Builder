@@ -74,7 +74,11 @@ class Details extends Component {
 			deleveryMethod: {
 				elementType: 'select',
 				elementConfig: {
-					options: [ { value: 'fast', displayValue: 'Fastest' }, { value: 'slow', displayValue: 'Standard' } ]
+					options: [
+						{ value: 'Not Selected', displayValue: '(------Select Your Delevery Option----)' },
+						{ value: 'fast', displayValue: 'Fastest' },
+						{ value: 'slow', displayValue: 'Standard' }
+					]
 				},
 				value: ''
 			}
@@ -149,7 +153,7 @@ class Details extends Component {
 						changed={(event) => this.inputChangedHandler(event, fe.id)}
 					/>
 				))}
-				<Button btnType="Success">Order</Button>
+				<Button btnType="Info">Order It</Button>
 			</form>
 		);
 		if (this.props.load) {

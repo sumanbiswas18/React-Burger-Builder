@@ -1,0 +1,20 @@
+.OrderSummary {
+	background-color: rgb(238, 180, 133);
+	padding: 10px 15px;
+	color: rgb(49, 48, 48);
+}
+.OrderSummary ul {
+	list-style: square;
+	display: flex;
+	justify-content: space-around;
+	padding: 20px;
+	flex-flow: row;
+}
+.OrderSummary p {
+	font-size: 16px;
+	font-weight: normal;
+}
+.OrderSummary p strong {
+	background-color: rgb(59, 169, 184);
+	padding: 10px 50px;
+}
